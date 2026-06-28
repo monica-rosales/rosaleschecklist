@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rosales' Check List — Canadian Visa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red:   #C8102E;
+      --maple: #F4A200;
+      --cream: #FAF8F3;
+      --dark:  #1A1A1A;
+      --mid:   #4A4A4A;
+      --light: #E8E2D9;
+      --white: #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--dark);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      background: var(--red);
+      padding: 30px 24px 22px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '🍁';
+      position: absolute;
+      font-size: 130px;
+      opacity: 0.07;
+      top: -18px; left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+    header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 5vw, 2.5rem);
+      color: var(--white);
+      position: relative;
+    }
+    header p {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.8rem;
+      margin-top: 5px;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      position: relative;
+    }
+
+    /* CONTENT */
+    .content {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    /* PROGRESS GLOBAL */
+    .global-progress {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 22px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .global-progress span {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--mid);
+      white-space: nowrap;
+    }
+    .progress-bar-bg {
+      flex: 1; height: 8px;
+      background: var(--light);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--red);
+      border-radius: 99px;
+      transition: width 0.3s;
+      width: 0%;
+    }
+    .progress-label {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--red);
+      min-width: 36px;
+      text-align: right;
+    }
+
+    /* CARD */
+    .section-card {
+      background: var(--white);
+      border-radius: 14px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .section-header {
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-header.red   { background: var(--red);   color: var(--white); }
+    .section-header.maple { background: var(--maple); color: var(--dark);  }
+    .section-icon  { font-size: 1.15rem; }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    /* CHECKLIST */
+    .checklist { padding: 10px 20px 14px; list-style: none; }
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 9px 6px;
+      border-bottom: 1px solid var(--light);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--mid);
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .checklist li:last-child { border-bottom: none; }
+    .checklist li:hover { background: var(--cream); }
+    .checklist li input[type="checkbox"] {
+      margin-top: 3px;
+      width: 17px; height: 17px;
+      flex-shrink: 0;
+      accent-color: var(--red);
+      cursor: pointer;
+    }
+    .checklist li.checked > span { text-decoration: line-through; opacity: 0.45; }
+
+    /* INFO BUTTON */
+    .has-modal { position: relative; }
+    .info-btn {
+      flex-shrink: 0;
+      margin-left: auto;
+      background: var(--maple);
+      border: none;
+      border-radius: 50%;
+      width: 22px; height: 22px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dark);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .info-btn:hover { background: #e09200; }
+
+    /* SUB LABEL */
+    .sub-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--maple);
+      padding: 10px 20px 2px;
+    }
+
+    /* NOTE */
+    .note {
+      background: #FFF8E7;
+      border-left: 3px solid var(--maple);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 0.83rem;
+      color: var(--mid);
+      margin: 0 20px 16px;
+      line-height: 1.5;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: var(--white);
+      border-radius: 16px;
+      max-width: 480px;
+      width: 100%;
+      padding: 24px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+      position: relative;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px; right: 16px;
+      background: none; border: none;
+      font-size: 1.3rem; cursor: pointer; color: var(--mid);
+    }
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--dark);
+      margin-bottom: 10px;
+      padding-right: 24px;
+    }
+    .modal-intro {
+      font-size: 0.85rem;
+      color: var(--mid);
+      margin-bottom: 12px;
+      line-height: 1.5;
+    }
+    .modal-list {
+      list-style: disc;
+      padding-left: 20px;
+      font-size: 0.87rem;
+      color: var(--mid);
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+<!-- MODAL carta de trabajo -->
+<div class="modal-overlay" id="modal" onclick="closeModal(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal').classList.remove('open')">✕</button>
+    <div class="modal-title">Carta de Trabajo — Requisitos</div>
+    <p class="modal-intro">La carta debe estar impresa en papel membretado oficial del empleador e incluir lo siguiente:</p>
+    <ul class="modal-list">
+      <li>Fecha (no más de 3 meses antes de aplicar)</li>
+      <li>Confirmación de empleo con la empresa</li>
+      <li>Nombre completo y fecha de nacimiento</li>
+      <li>Fecha de inicio en el trabajo</li>
+      <li>Descripción breve del puesto</li>
+      <li>Salario actual</li>
+      <li>Información de contacto del gerente</li>
+      <li>Número de teléfono</li>
+      <li>Correo electrónico</li>
+      <li>Información del empleador</li>
+      <li>Nombre de la empresa</li>
+      <li>Dirección</li>
+      <li>Autorización para viajar en la fecha solicitada</li>
+    </ul>
+  </div>
+</div>
+
+<header>
+  <h1>Rosales' Check List 🍁</h1>
+  <p>Canadian Visitor Visa — Familia Rosales</p>
+</header>
+
+<div class="content">
+
+  <!-- Progreso global -->
+  <div class="global-progress">
+    <span>Progreso general</span>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-global"></div></div>
+    <span class="progress-label" id="pct-global">0%</span>
+  </div>
+
+  <!-- VISA -->
+  <div class="section-card">
+    <div class="section-header red">
+      <span class="section-icon">📋</span>
+      <span class="section-title">Documentos requeridos para la Visa</span>
+    </div>
+    <ul class="checklist" id="main-list">
+      <li><input type="checkbox"><span>Fechas de ida y vuelta definidas, además de lugares que quisieran visitar</span></li>
+      <li><input type="checkbox"><span>Pasaporte vigente con al menos 6 meses de validez luego de la fecha de regreso</span></li>
+      <li><input type="checkbox"><span>Escanear pasaportes vigentes y vencidos — incluir todas las marcas y sellos</span></li>
+      <li class="has-modal"><input type="checkbox"><span>Carta de trabajo <em style="font-size:0.8rem;color:var(--maple)">(ver requisitos)</em></span><button class="info-btn" onclick="openModal(event)">i</button></li>
+      <li><input type="checkbox"><span>DPIs / Partida de nacimiento escaneados</span></li>
+      <li><input type="checkbox"><span>Estados de cuenta de los últimos 6 meses escaneados</span></li>
+      <li><input type="checkbox"><span>Títulos universitarios / Estudios superiores / Última prueba de estudios de los niños — escaneados</span></li>
+      <li><input type="checkbox"><span>Títulos de propiedad escaneados (terrenos, vehículos, etc.)</span></li>
+      <li><input type="checkbox"><span>Pago de CAD $135 (aprox.) por persona</span></li>
+      <li><input type="checkbox"><span>Carta de invitación</span></li>
+    </ul>
+  </div>
+
+  <!-- CARTA DE INVITACIÓN -->
+  <div class="section-card">
+    <div class="section-header maple">
+      <span class="section-icon">✉️</span>
+      <span class="section-title">Carta de Invitación — Lo que debe incluir</span>
+    </div>
+    <p class="sub-label">Sobre el anfitrión (quien escribe la carta)</p>
+    <ul class="checklist" id="carta-list-1">
+      <li><input type="checkbox"><span>Nombre completo del anfitrión</span></li>
+      <li><input type="checkbox"><span>Fecha de nacimiento</span></li>
+      <li><input type="checkbox"><span>Dirección y número de teléfono en Canadá</span></li>
+      <li><input type="checkbox"><span>Título / cargo del trabajo</span></li>
+      <li><input type="checkbox"><span>Si es ciudadano canadiense o residente permanente</span></li>
+      <li><input type="checkbox"><span>Fotocopia del documento que prueba su estatus en Canadá (acta de nacimiento, tarjeta de ciudadanía o PR card)</span></li>
+      <li><input type="checkbox"><span>Datos familiares: nombres y fechas de nacimiento de cónyuge e hijos dependientes</span></li>
+    </ul>
+    <p class="sub-label">Sobre los visitantes (Familia Rosales)</p>
+    <ul class="checklist" id="carta-list-2">
+      <li><input type="checkbox"><span>Nombre completo de cada visitante</span></li>
+      <li><input type="checkbox"><span>Fecha de nacimiento de cada visitante</span></li>
+      <li><input type="checkbox"><span>Dirección y teléfono en Guatemala</span></li>
+      <li><input type="checkbox"><span>Relación con el anfitrión</span></li>
+      <li><input type="checkbox"><span>Propósito del viaje</span></li>
+      <li><input type="checkbox"><span>Cuánto tiempo planean quedarse en Canadá</span></li>
+      <li><input type="checkbox"><span>Dónde se hospedarán y cómo pagarán sus gastos</span></li>
+      <li><input type="checkbox"><span>Cuándo planean regresar a Guatemala</span></li>
+    </ul>
+    <div class="note">⚠️ Escribir la carta de invitación no hace al anfitrión legalmente responsable de los visitantes. Debe escribirse de buena fe y con información verídica.</div>
+  </div>
+
+</div>
+
+<script>
+  function updateProgress() {
+    const all     = document.querySelectorAll('input[type="checkbox"]');
+    const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+    const pct = all.length ? Math.round(checked.length / all.length * 100) : 0;
+    document.getElementById('prog-global').style.width = pct + '%';
+    document.getElementById('pct-global').textContent  = pct + '%';
+  }
+
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', function() {
+      this.closest('li').classList.toggle('checked', this.checked);
+      updateProgress();
+    });
+  });
+
+  function openModal(e) {
+    e.stopPropagation();
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modal')) {
+      document.getElementById('modal').classList.remove('open');
+    }
+  }
+
+  updateProgress();
+</script>
+</body>
+</html>
